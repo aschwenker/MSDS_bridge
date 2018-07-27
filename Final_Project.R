@@ -1,0 +1,10 @@
+library(RCurl)
+library(maptools)
+crswgs84=CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+states=readShapePoly("H:/CLASS/MSDS_Bridge/stateshape/tl_2017_us_state.shp",proj4string=crswgs84,verbose=TRUE)
+state_list <- states$NAME
+outside<- c("Commonwealth of the Northern Mariana Islands","Hawaii","Alaska","Puerto Rico","Guam","American Samoa","United States Virgin Islands")
+contiguous_state_list <- state_list[!state_list%in% outside]
+contiguous_state_df <- subset(states,(states$NAME %in% contiguous_state_list))
+plot(contiguous_state_df)
+
